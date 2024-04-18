@@ -83,53 +83,5 @@
             console.log("CSV fajl poslat na Gmail nalog.");
         }
     </script>
-</body>
-<?php
-require 'vendor/autoload.php'; // Učitavanje Mailchimp API biblioteke
-
-use \DrewM\MailChimp\MailChimp;
-
-// Konfiguracija Mailchimp API klase
-$api_key = 'your_mailchimp_api_key'; // Postavite svoj Mailchimp API ključ
-$list_id = 'your_mailchimp_list_id'; // Postavite ID liste na kojoj želite da izvršite operaciju
-
-$mailchimp = new MailChimp($api_key);
-
-// Dohvatite kontakte iz Mailchimpa
-$result = $mailchimp->get("lists/$list_id/members");
-
-// Provera da li je došlo do greške pri dohvatanju kontakata
-if ($mailchimp->success()) {
-    // Generisanje CSV fajla
-    $csv_filename = 'contacts.csv';
-    $csv_file = fopen($csv_filename, 'w');
-    fputcsv($csv_file, ['Email', 'First Name', 'Last Name']);
-
-    foreach ($result['members'] as $member) {
-        $email = $member['email_address'];
-        $first_name = isset($member['merge_fields']['FNAME']) ? $member['merge_fields']['FNAME'] : '';
-        $last_name = isset($member['merge_fields']['LNAME']) ? $member['merge_fields']['LNAME'] : '';
-        fputcsv($csv_file, [$email, $first_name, $last_name]);
-    }
-
-    fclose($csv_file);
-
-    // Slanje e-pošte na Gmail nalog
-    $to = 'your_gmail@example.com'; // Vaš Gmail nalog
-    $subject = 'CSV fajl sa kontaktima iz Mailchimpa';
-    $message = 'Pogledajte prilog za CSV fajl sa kontaktima iz Mailchimpa.';
-    $headers = 'From: your_email@example.com'; // Vaša e-adresa
-    $attachment = $csv_filename;
-
-    // Slanje e-pošte sa prilogom
-    if (mail($to, $subject, $message, $headers, $attachment)) {
-        echo "CSV fajl poslat na vaš Gmail nalog.";
-    } else {
-        echo "Došlo je do greške prilikom slanja e-pošte.";
-    }
-} else {
-    echo "Došlo je do greške pri dohvatanju kontakata iz Mailchimpa.";
-}
-?>
-    
+</body>   
 </html>
