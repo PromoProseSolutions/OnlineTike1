@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlineTike - Prodaja patika</title>
+    <style>
+        /* Stilizacija forme */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+            display: none; /* Inicijalno skriveno */
+            position: absolute; /* Centriranje u odnosu na roditeljski element */
+            top: 50%; /* Pomera vertikalno na 50% od vrha */
+            left: 50%; /* Pomera horizontalno na 50% od leve strane */
+            transform: translate(-50%, -50%); /* Centriranje */
+        }
+        .confirmation-text {
+            font-size: 24px; /* Veći font */
+            margin-bottom: 10px; /* Margina ispod teksta */
+        }
+        .sub-text {
+            font-size: 14px; /* Manji font */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>OnlineTike - Prodaja patika</h1>
+    </header>
+    <main>
+        <section id="signup">
+            <h2>Registrujte se za novosti</h2>
+            <form id="signup-form" onsubmit="submitForm(event)">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Registrujte se</button>
+            </form>
+        </section>
+
+        <div class="message" id="confirmation-message">
+            <div class="confirmation-text">Hvala vam što ste se registrovali!</div>
+            <div class="sub-text">Javićemo vam se putem mejla.</div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 OnlineTike. Sva prava zadržana.</p>
+    </footer>
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Sprječava podnošenje forme na standardni način
+
+            // Simulacija slanja CSV fajla na Gmail nalog
+            sendCSVToGmail();
+
+            // Prikazivanje potvrde na ekranu
+            document.getElementById("signup").style.display = "none"; // Sakriva formu
+            document.getElementById("confirmation-message").style.display = "block"; // Prikaže potvrdu
+        }
+
+        function sendCSVToGmail() {
+            // Simulacija slanja CSV fajla na Gmail nalog (ovde možete dodati stvarnu logiku za slanje na Gmail)
+            console.log("CSV fajl poslat na Gmail nalog.");
+        }
+    </script>
+</body>
+</html>
